@@ -34,76 +34,11 @@
 
 <body>
     <div id="wrap">
-
+		<h1>看电视剧发到手机发的是</h1>
     </div>
 </body>
 <script>
-    function num(m, n) {
-        return Math.floor(Math.random() * (n - m + 1) + m);
-    }
-    var wrap = document.getElementById('wrap');
-    var divQ;
-    for (var i = 0; i < num(10, 50); i++) {//在div里插入一定数量的li
-        divQ = document.createElement('div');
-        wrap.appendChild(divQ);
-    }
-    var divA = document.querySelectorAll('#wrap div');
-    console.log(divA);
-    var wrapWidth = wrap.offsetWidth;
-    var divAWidth = divA[0].offsetWidth;
-    var wrapHeight = wrap.offsetHeight;
-    var divAHeight = divA[0].offsetHeight;
-    for (var i = 0; i < divA.length; i++) {
-        divA[i].q1 = num(1, 5) * (num(1, 100) < 50 ? -1 : 1);
-        divA[i].q2 = num(1, 5) * (num(1, 100) < 50 ? -1 : 1);
-        divA[i].p1 = divA[i].q1 > 0 ? true : false;
-        divA[i].p2 = divA[i].q2 > 0 ? true : false;
-        divA[i].style.left = num(0, wrapWidth - divA[i].offsetWidth) + 'px';
-        divA[i].style.top = num(0, wrapHeight - divA[i].offsetHeight) + 'px';
-        divA[i].style.width = num(20, 70) + 'px';
-        divA[i].style.height = divA[i].offsetWidth + 'px';
-        divA[i].style.backgroundColor = 'rgb(' + num(0, 255) + ',' + num(0, 255) + ',' + num(0, 255) + ')';
-    }
-    function moveX() {
-        for (var i = 0; i < divA.length; i++) {
-            if (divA[i].p1) {
-                divA[i].style.left = divA[i].offsetLeft + divA[i].q1 + 'px';
-                if (divA[i].offsetLeft >=  - divA[i].offsetWidth) {
-                    divA[i].p1 = false;
-                    divA[i].q1 *= -1;
-                }
-            } else {
-                divA[i].style.left = divA[i].offsetLeft + divA[i].q1 + 'px';
-                if (divA[i].offsetLeft <= 0) {
-                    divA[i].p1 = true;
-                    divA[i].q1 *= -1;
-                }
-            }
-
-        }
-    }
-    function moveY() {
-        for (var i = 0; i < divA.length; i++) {
-            if (divA[i].p2) {
-                divA[i].style.top = divA[i].offsetTop + divA[i].q2 + 'px';
-                if (divA[i].offsetTop >= wrapHeight - divA[i].offsetHeight) {
-                    divA[i].p2 = false;
-                    divA[i].q2 *= -1;
-                }
-            } else {
-                divA[i].style.top = divA[i].offsetTop + divA[i].q2 + 'px';
-                if (divA[i].offsetTop <= 0) {
-                    divA[i].p2 = true;
-                    divA[i].q2 *= -1;
-                }
-            }
-
-        }
-    }
-    setInterval(function () {
-        moveX();
-        moveY();
-    }, 10);
+   
 </script>
 
 </html>
