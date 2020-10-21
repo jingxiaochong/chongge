@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #wrap {
+            width: 800px;
+            /* height: 800px; */
+            border: 1px solid black;
+            margin: 20px auto;
+        }
+
+        #ul1 {
+            list-style-type: none;
+
+        }
+
+        #ul1 li {
+            width: 100px;
+            height: 100px;
+            font-size: 30px;
+            color: white;
+            text-align: center;
+            line-height: 100px;
+            float: left;
+            background-color: blue;
+        }
+
+        #p1 {
+            font-size: 30px;
+        }
+
+        #but {
+            background-color: chocolate;
+            font-size: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="wrap">
+        <div>
+            <p id="p1">剩余时间：60</p>
+            <button id="but">重新开始</button>
+        </div>
+        <ul id="ul1">
+        </ul>
+
+    </div>
+
+</body>
+<script>
+    var ul1 = document.getElementById('ul1');
+    var lis = document.querySelectorAll('#ul1 li');
+    var but = document.getElementById('but');
+    var liQ, qaz, timer, p;
+    var p1 = document.getElementById('p1');
+    var c = 0;
+    var number = [];//用来储存新生成的数组
+    var numberQ = [];//用来储存点击事件中值的数组
+
+    function num(m, n) {//随机数字函数
+        return Math.floor(Math.random() * (n - m + 1) + m);
+    }
+    for (var i = 0; i < 64; i++) {//在ul里插入一定数量的li
+        liQ = document.createElement('li');
+        ul1.appendChild(liQ);
+    }
+    lis = document.querySelectorAll('#ul1 li');//插入的li用一个变量储存
+
+    for (var i = 0; i < lis.length; i++) {//随机为一个li添加背景色
+        lis[i].style.backgroundColor = 'rgb(' + num(0, 255) + ',' + num(0, 255) + ',' + num(0, 255) + ')';
+    }
+    for (var i = 0; i < lis.length / 2; i++) {//随机生成不重复的数字用一个数组存储
+        qaz = num(10, 50);//定义一个变量随机数
+        if (number.indexOf(qaz) == -1) {//数组去重
+            number.push(qaz);
+            number.push(qaz);
+        } else {
+            i--;//如果有重复的数回到上一次循环
+        }
+    }
+    number.sort(function () {//数组随机打乱
+        return Math.random() - 0.5;
+    })
+    but.onclick = function () {//重新开始按钮点击开始游戏
+        for (var i = 0; i < lis.length; i++) {
+            lis[i].innerHTML = number[i];//将数组中的值赋到li中
+            numberQ = [];//用来存储li点击后生成的数组
+            c = 0;//纪录消除的次数
+            lis[i].onclick = function () {//所有li的点击事件
+                numberQ.push(this);//将点击的li纪录在numberQ数组里
+                if (numberQ.length == 2) {//第二次点击
+                    if (numberQ[0].innerHTML == numberQ[1].innerHTML && numberQ[0] != numberQ[1]) {//第一次点击的内容和第二次点击的内容相同且第一次点击的li不是第二次点击的li
+                        numberQ[0].style.visibility = "hidden";//第一次点击的li隐藏
+                        numberQ[1].style.visibility = "hidden";//第二次点击的li隐藏
+                        c++;//每次消除后加1用来记录仪分数
+                    }
+                    numberQ = [];//重新清空数组
+                }
+            }
+        }
+        p = 60;//计时的时间
+        temer = setInterval(function () {//计时器
+            p--;
+            p1.innerHTML = '剩余时间：' + p;//剩余时间
+            if (p == 0) {
+                alert(c + '分');//输出分数
+                clearInterval(temer );
+            }
+        }, 1000)
+    }
+</script>
+
+</html>
